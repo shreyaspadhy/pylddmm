@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post4+g1b8bfc6 documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post5+g303a7da documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.post4+g1b8bfc6
+                0.post5+g303a7da
               </div>
             
           
@@ -182,13 +182,15 @@
     <span class="k">return</span> <span class="n">X</span></div>
 
 
-<span class="k">def</span> <span class="nf">load_rigid_matrix</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="load_rigid_matrix"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.load_rigid_matrix">[docs]</a><span class="k">def</span> <span class="nf">load_rigid_matrix</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a .dat file into a rigid transformation matrix</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    fname : str</span>
 <span class="sd">       Filename with extension .dat</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    matrix : nparray</span>
@@ -200,18 +202,20 @@
             <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
     <span class="n">matrix</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">matrix</span>
+    <span class="k">return</span> <span class="n">matrix</span></div>
 
 
-<span class="k">def</span> <span class="nf">perform_rigid_transform</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">matrix</span><span class="p">):</span>
+<div class="viewcode-block" id="perform_rigid_transform"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.perform_rigid_transform">[docs]</a><span class="k">def</span> <span class="nf">perform_rigid_transform</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">matrix</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs a rigid transform on vertices</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    vertices : nparray</span>
 <span class="sd">       (3 x nv) vertices to perform transform on</span>
 <span class="sd">    matrix : nparray</span>
 <span class="sd">        (4 x 4) rigid transform array in homogenous coords</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    vertices_trans : nparray</span>
@@ -220,33 +224,37 @@
     <span class="n">Vh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">vertices</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">vertices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))])</span>
 
     <span class="n">Avh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">Vh</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">Avh</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">Avh</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span></div>
 
 
-<span class="k">def</span> <span class="nf">reflect_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="reflect_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.reflect_surface">[docs]</a><span class="k">def</span> <span class="nf">reflect_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reflects a surface around a specified axis</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    vertices : nparray</span>
 <span class="sd">        (3 x nv) array of vertex coordinates</span>
 <span class="sd">    faces : nparray</span>
 <span class="sd">        (3 x nf) array of triplets of vertices making triangular face</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">reflect_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">reflect_matrix</span><span class="p">[</span><span class="n">axis</span><span class="p">,</span> <span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">return</span> <span class="n">perform_rigid_transform</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">reflect_matrix</span><span class="p">),</span> <span class="n">faces</span>
+    <span class="k">return</span> <span class="n">perform_rigid_transform</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">reflect_matrix</span><span class="p">),</span> <span class="n">faces</span></div>
 
 
-<span class="k">def</span> <span class="nf">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="load_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.load_surface">[docs]</a><span class="k">def</span> <span class="nf">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a .byu file into vertices and faces</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    fname : str</span>
 <span class="sd">       Filename with extension .byu</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    vertices : nparray</span>
@@ -269,12 +277,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">faces</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">nv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">-</span>
                                           <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-    <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span>
+    <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span></div>
 
 
-<span class="k">def</span> <span class="nf">save_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="save_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.save_surface">[docs]</a><span class="k">def</span> <span class="nf">save_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves vertices and faces as a .byu file</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    vertices : nparray</span>
@@ -297,7 +306,7 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
                                         <span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                                        <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+                                        <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span></div>
 
 
 <span class="k">def</span> <span class="nf">axis_equal</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -444,7 +453,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.post4+g1b8bfc6',
+            VERSION:'0.post5+g303a7da',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
