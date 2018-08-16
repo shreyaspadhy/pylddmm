@@ -18,3 +18,14 @@ script:
   - codecov  # Upload the report to codecov.
   - flake8 --max-line-length=115  # Enforce code style (but relax line length limit a bit).
   - make -C docs html  # Build the documentation.
+
+env:
+  global:
+    # Doctr deploy key for shreyaspadhy/pylddmm
+    - secure: "ehsdX5bdsb10PV6+B0SMjNMbLUtlTAb3ikvtmiJxUkHd7SGGrpKsn+IseRQBRWAUixkEaYhPSF54ArgkZrd1y8AaEZWPwbVkpTKPTXUYi6Xz1afuJ43R2UBsaKeF8fvJ70g0yM66GBQS4+VkBwOIZU0wIeIOanuCTLcA8jOZv3F7NQPVitizO7EYyaBxdpFP00AhfGgAcGehnq/UM2XoeC9b13SsEVbu59uY4z96CKTutb2/vangAoFD6x1q9A0SyZe3OSw5i1Pz2Pn4sE6CNgc4djIT6eOGCzxRkdOzVeMa8ie+3JIUvRxV1jjUKIx14BgfqHgoD9yg4omwR4DEN9o1CA7RixV4YMAHNqoS80HzBpdzLDwVji8LEc6zPRpUQwD7v38ssRmx6xwGOdnNYOb9Hi4z5X/+br19JgrmQpZjrGkpX7fqjW/DIuLJJToSOBOEESUFHm6p4FRv5KugfOaKhNe4J5Cz7iP4XhAZysrvNiqWiypaxRq9pBYjMrEPklZ3Ms60lAfyPWoz34p7y2xS3TwO4jOD3IFR3utEnEI8uGQrwZWdBhgEQ3HYSnI2U00vFpXZwHnrYKvddQVL9F9bgPDoCrEQEYUzpLdRePkHjaJ274gjupugDqZ/98WoRZUixwcS24c9tY0RR2ifngBNAPYSzhYERpil5ftBCkc="
+
+script:
+  - set -e
+  - make -C docs html
+  - pip install doctr
+  - doctr deploy --built-docs docs/build/html .
