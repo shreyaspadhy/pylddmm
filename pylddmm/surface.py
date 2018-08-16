@@ -33,10 +33,12 @@ def load_landmarks(fname):
 def load_rigid_matrix(fname):
     """
     Loads a .dat file into a rigid transformation matrix
+
     Parameters
     ----------
     fname : str
        Filename with extension .dat
+
     Returns
     -------
     matrix : nparray
@@ -54,12 +56,14 @@ def load_rigid_matrix(fname):
 def perform_rigid_transform(vertices, matrix):
     """
     Performs a rigid transform on vertices
+
     Parameters
     ----------
     vertices : nparray
        (3 x nv) vertices to perform transform on
     matrix : nparray
         (4 x 4) rigid transform array in homogenous coords
+
     Returns
     -------
     vertices_trans : nparray
@@ -74,12 +78,14 @@ def perform_rigid_transform(vertices, matrix):
 def reflect_surface(vertices, faces, axis=0):
     """
     Reflects a surface around a specified axis
+
     Parameters
     ----------
     vertices : nparray
         (3 x nv) array of vertex coordinates
     faces : nparray
         (3 x nf) array of triplets of vertices making triangular face
+
     Returns
     -------
     """
@@ -91,10 +97,12 @@ def reflect_surface(vertices, faces, axis=0):
 def load_surface(fname):
     """
     Loads a .byu file into vertices and faces
+
     Parameters
     ----------
     fname : str
        Filename with extension .byu
+
     Returns
     -------
     vertices : nparray
@@ -123,6 +131,7 @@ def load_surface(fname):
 def save_surface(vertices, faces, fname):
     """
     Saves vertices and faces as a .byu file
+
     Parameters
     ----------
     vertices : nparray
