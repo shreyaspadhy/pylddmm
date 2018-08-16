@@ -8,14 +8,16 @@ import matplotlib.pyplot as plt
 def load_landmarks(fname):
     """
     Load landmarks from text file, where first line has size info
+
     Parameters
     ----------
     fname : str
-        Filename of file containing landmarks as d-rows of n vertices
+        Filename of file containing landmarks as :math:`d`-rows of :math:`n` vertices
+
     Returns
     -------
     X : nparray
-        (d x n) array containing d n-dimensional points
+        (d x n) array containing :math:`d` :math:`n`-dimensional points
     """
     with open(fname) as f:
         for i, line in enumerate(f):
