@@ -94,7 +94,7 @@ def reflect_surface(vertices, faces, axis=0):
     return perform_rigid_transform(vertices, reflect_matrix), faces
 
 
-def load_surface(fname):
+def load_surface(fname, arbitrary=False):
     """
     Loads a .byu file into vertices and faces
 
@@ -102,6 +102,8 @@ def load_surface(fname):
     ----------
     fname : str
        Filename with extension .byu
+    arbitrary : bool
+        Whether file format is arbitrary polygon
 
     Returns
     -------
@@ -110,22 +112,52 @@ def load_surface(fname):
     faces : nparray
         (3 x nf) array of triplets of vertices making triangular face
     """
-    with open(fname) as f:
-        for i, line in enumerate(f):
-            if i == 0:
-                # the first gives info about file
-                _, nv, nf, _ = [int(n) for n in line.split()]
-                vertices = np.empty((3, nv), dtype=float)
-                faces = np.empty((nf, 3), dtype=int)
-                continue
-            elif i == 1:
-                continue
-            if i <= nv + 1:
-                vertices[:, i - 2] = [float(n) for n in line.split()]
-            else:
-                faces[i - (nv + 2), :] = [np.abs(int(n)) -
-                                          1 for n in line.split()]
-    return vertices, faces
+    if not arbitrary:
+        with open(fname) as f:
+            for i, line in enumerate(f):
+                if i == 0:
+                    # the first gives info about file
+                    _, nv, nf, _ = [int(n) for n in line.split()]
+                    vertices = np.empty((3, nv), dtype=float)
+                    faces = np.empty((nf, 3), dtype=int)
+                    continue
+                elif i == 1:
+                    continue
+                if i <= nv + 1:
+                    vertices[:, i - 2] = [float(n) for n in line.split()]
+                else:
+                    faces[i - (nv + 2), :] = [np.abs(int(n)) -
+                                            1 for n in line.split()]
+        return vertices, faces
+    else:
+        face_list = []
+        with open(fname) as f:
+            for i, line in enumerate(f):
+                if i == 0:
+                    # the first gives info about file
+                    vals = [int(n) for n in line.split()]
+                    ns, nv, nf, ne = vals[0], vals[1], vals[2], vals[3]
+                    vertices = np.empty((3, nv), dtype=float)
+                    faces = np.empty((nf, 3), dtype=int)
+                    
+                    nv_count, nf_count = 0, 0
+                    continue
+                elif i >= 1 and i <= ns:
+                    # the next ns lines define surfaces
+                    continue
+                elif i > ns and i <= ns + -(-nv // 2):
+                    vals = line.split()
+                    vertices[:, 2 * (i - ns - 1)] = [float(n) for n in vals[:3]]
+                    if len(vals) > 3:
+                        vertices[:, 2 * (i - ns - 1) + 1] = [float(n) for n in vals[3:]]      
+                else:
+                    vals = [abs(int(n))-1 for n in line.split()]
+                    face_list.extend(vals)
+            
+            face_list = np.asarray(face_list)
+            faces = face_list.reshape((nf,3))
+            
+            return vertices, faces
 
 
 def save_surface(vertices, faces, fname):
