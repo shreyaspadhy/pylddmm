@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post6+ge2b7c31 documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post7+gbefdaf2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.post6+ge2b7c31
+                0.post7+gbefdaf2
               </div>
             
           
@@ -246,7 +246,7 @@
     <span class="k">return</span> <span class="n">perform_rigid_transform</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">reflect_matrix</span><span class="p">),</span> <span class="n">faces</span></div>
 
 
-<div class="viewcode-block" id="load_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.load_surface">[docs]</a><span class="k">def</span> <span class="nf">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="load_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.load_surface">[docs]</a><span class="k">def</span> <span class="nf">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">arbitrary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a .byu file into vertices and faces</span>
 
@@ -254,6 +254,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    fname : str</span>
 <span class="sd">       Filename with extension .byu</span>
+<span class="sd">    arbitrary : bool</span>
+<span class="sd">        Whether file format is arbitrary polygon</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -262,22 +264,52 @@
 <span class="sd">    faces : nparray</span>
 <span class="sd">        (3 x nf) array of triplets of vertices making triangular face</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># the first gives info about file</span>
-                <span class="n">_</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-                <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-                <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-                <span class="k">continue</span>
-            <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">vertices</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">faces</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">nv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">-</span>
-                                          <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-    <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span></div>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">arbitrary</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># the first gives info about file</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                    <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                    <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">vertices</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">faces</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">nv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">-</span>
+                                            <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">face_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># the first gives info about file</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                    <span class="n">ns</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">ne</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                    <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                    <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                    
+                    <span class="n">nv_count</span><span class="p">,</span> <span class="n">nf_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">ns</span><span class="p">:</span>
+                    <span class="c1"># the next ns lines define surfaces</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">ns</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">ns</span> <span class="o">+</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">nv</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                    <span class="n">vertices</span><span class="p">[:,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">ns</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="n">vertices</span><span class="p">[:,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">ns</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[</span><span class="mi">3</span><span class="p">:]]</span>      
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                    <span class="n">face_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+            
+            <span class="n">face_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">face_list</span><span class="p">)</span>
+            <span class="n">faces</span> <span class="o">=</span> <span class="n">face_list</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+            
+            <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span></div>
 
 
 <div class="viewcode-block" id="save_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.save_surface">[docs]</a><span class="k">def</span> <span class="nf">save_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
@@ -453,7 +485,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.post6+ge2b7c31',
+            VERSION:'0.post7+gbefdaf2',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
