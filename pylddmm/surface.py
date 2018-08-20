@@ -189,6 +189,36 @@ def save_surface(vertices, faces, fname):
                                         -1 * (faces[i, 2] + 1)))
 
 
+def vol_from_byu(*args,**kwargs):
+    """
+    Calculates the volume of a surface defined as a .byu file
+    
+    Parameters
+    ----------
+    *args
+        Specify either the filename or a pair of vertex, face arrays
+    **kwargs
+        Specify either `filename` or a pair of `V`, `F`
+        
+    Returns
+    -------
+    volume : float
+        The volume of the surface
+    """
+    if len(args) == 2:
+        V, F = args[0], args[1]
+    elif len(args) == 1:
+        V, F = surf.load_surface(args[0])
+    elif "filename" in kwargs:
+        V, F = surf.load_surface(kwargs['filename'])
+    elif "V" in kwargs and "F" in kwargs:
+        V, F = kwargs['V'], kwargs['F']
+    else:
+        print("Please input either a filename or vertices and faces")
+    volume = np.sum(np.sum(np.cross(V[:,F[:,0]].T, V[:,F[:,1]].T) * V[:,F[:,2]].T)) / 6.0
+    return volume
+
+
 def axis_equal(ax=None):
     '''Set x,y,z axes to constant aspect ratio
     ax is a matplotlib 3d axex object'''
@@ -207,6 +237,31 @@ def axis_equal(ax=None):
     ax.set_xlim(cx + np.array([-1, 1]) * 0.5 * r)
     ax.set_ylim(cy + np.array([-1, 1]) * 0.5 * r)
     ax.set_zlim(cz + np.array([-1, 1]) * 0.5 * r)
+
+
+def plot_surface(vertices, faces, ax=None, **kwargs):
+    """
+    Plots a 3D surface given vertices and faces
+    
+    Parameters
+    ----------
+    vertices : nparray
+        (3 x nv) array of vertex coordinates
+    faces : nparray
+        (3 x nf) array of triplets of vertices making triangular face
+    
+    Returns
+    -------
+    plot_trisurf : matplotlib plot_trisurf object
+    """
+    ax = ax or plt.gca()
+
+    return ax.plot_trisurf(
+            vertices[0,:], vertices[1,:], vertices[2,:], # the x,y,z components of all the vertices
+            triangles=faces, # how are the vertices connected up into triangular faces
+            edgecolor='none', # don't draw edges, this will look too busy
+            **kwargs
+        )
 
 
 def plot_grid(X0, X1, rstride=1, cstride=1, ax=None, **kwargs):
