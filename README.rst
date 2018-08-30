@@ -12,9 +12,10 @@ PyLDDMM
 Python Package for performing LDDMM and related tasks
 
 * Free software: 3-clause BSD license
-* Documentation: (COMING SOON!) https://shreyaspadhy.github.io/pylddmm.
+* Documentation: https://shreyaspadhy.github.io/pylddmm.
 
 Features
 --------
 
-* TODO
+* Surface Manipulation: Loading, saving and plotting .byu files
+* Performing rigid transformations on surfaces and landmarks
