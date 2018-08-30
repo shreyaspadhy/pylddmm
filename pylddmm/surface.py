@@ -2,7 +2,7 @@
 import numpy as np
 # import matplotlib as mpl
 import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def load_landmarks(fname):
@@ -175,6 +175,38 @@ def axis_equal(ax=None):
     ax.set_xlim(cx + np.array([-1, 1]) * 0.5 * r)
     ax.set_ylim(cy + np.array([-1, 1]) * 0.5 * r)
     ax.set_zlim(cz + np.array([-1, 1]) * 0.5 * r)
+
+
+def plot_surf(vertices, faces, ax):
+    """
+    Plot 3D structure on matplotlib figure.
+
+    Parameters
+    ----------
+    vertices : nparray
+        (3 x nv) array of vertex coordinates
+    faces : nparray
+        (3 x nf) array of triplets of vertices making triangular face
+    fig : matplotlib figure object
+
+    Returns
+    -------
+    ax : matplotlib axis object
+    """
+    # ax = fig.add_subplot(111, projection='3d')
+    vol_l_plot = ax.plot_trisurf(
+        # the x,y,z components of all the vertices
+        vertices[0, :], vertices[1, :], vertices[2, :],
+        triangles=faces,  # how are the vertices connected in triangular faces
+        edgecolor='none',  # don't draw edges, this will look too busy
+        color='c',  # color is cyan
+        alpha=0.5  # make it translucent
+    )
+    axis_equal(ax)
+    ax.set_xlabel('x (mm)')
+    ax.set_ylabel('y (mm)')
+    ax.set_zlabel('z (mm)')
+    return ax
 
 
 def plot_grid(X0, X1, rstride=1, cstride=1, ax=None, **kwargs):
