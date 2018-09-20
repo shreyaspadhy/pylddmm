@@ -3,6 +3,7 @@ import numpy as np
 # import matplotlib as mpl
 import matplotlib.pyplot as plt
 # from mpl_toolkits.mplot3d import Axes3D
+import pandas as pd
 
 
 def load_landmarks(fname):
@@ -113,22 +114,26 @@ def load_surface(fname, arbitrary=False):
         (3 x nf) array of triplets of vertices making triangular face
     """
     if not arbitrary:
-        with open(fname) as f:
-            for i, line in enumerate(f):
-                if i == 0:
-                    # the first gives info about file
-                    _, nv, nf, _ = [int(n) for n in line.split()]
-                    vertices = np.empty((3, nv), dtype=float)
-                    faces = np.empty((nf, 3), dtype=int)
-                    continue
-                elif i == 1:
-                    continue
-                if i <= nv + 1:
-                    vertices[:, i - 2] = [float(n) for n in line.split()]
-                else:
-                    faces[i - (nv + 2), :] = [np.abs(int(n)) -
-                                            1 for n in line.split()]
-        return vertices, faces
+        try:
+            with open(fname) as f:
+                for i, line in enumerate(f):
+                    if i == 0:
+                        # the first gives info about file
+                        _, nv, nf, _ = [int(n) for n in line.split()]
+                        vertices = np.empty((3, nv), dtype=float)
+                        faces = np.empty((nf, 3), dtype=int)
+                        continue
+                    elif i == 1:
+                        continue
+                    if i <= nv + 1:
+                        vertices[:, i - 2] = [float(n) for n in line.split()]
+                    else:
+                        faces[i - (nv + 2), :] = [np.abs(int(n)) -
+                                                1 for n in line.split()]
+            return vertices, faces
+        except:
+            print("File is in original .byu format")
+            return load_surface(fname, arbitrary=True)
     else:
         face_list = []
         with open(fname) as f:
@@ -189,6 +194,22 @@ def save_surface(vertices, faces, fname):
                                         -1 * (faces[i, 2] + 1)))
 
 
+def flip_surface_normals(fname, out_fname):
+    """
+    Loads a .byu file, and flips the surface normal directions.
+
+    Parameters
+    ----------
+    fname : str
+        Filename of .byu file
+    out_fname : str
+        Filename of output flipped .byu file
+    """
+    V, F = load_surface(fname)
+    F[:,0], F[:,1] = F[:,1], F[:,0].copy()
+    save_surface(V, F, out_fname)
+    
+            
 def vol_from_byu(*args,**kwargs):
     """
     Calculates the volume of a surface defined as a .byu file
@@ -208,15 +229,61 @@ def vol_from_byu(*args,**kwargs):
     if len(args) == 2:
         V, F = args[0], args[1]
     elif len(args) == 1:
-        V, F = surf.load_surface(args[0])
+        V, F = load_surface(args[0])
     elif "filename" in kwargs:
-        V, F = surf.load_surface(kwargs['filename'])
+        V, F = load_surface(kwargs['filename'])
     elif "V" in kwargs and "F" in kwargs:
         V, F = kwargs['V'], kwargs['F']
     else:
         print("Please input either a filename or vertices and faces")
     volume = np.sum(np.sum(np.cross(V[:,F[:,0]].T, V[:,F[:,1]].T) * V[:,F[:,2]].T)) / 6.0
     return volume
+
+
+def extract_from_txt(filename):
+    """
+        Extracts left and right volumes with names from MRICloud Output text files
+
+        Parameters
+        ----------
+        filename: str
+            Name of .txt file output from MRICloud
+
+        Returns
+        -------
+        vol_L: Pandas Dataframe
+            Columns [vol_name, vol (mm^3)] for left volumes
+        vol_R: Pandas Dataframe 
+            Columns [vol_name, vol (mm^3)] for right volumes
+    """
+    lines = open(filename, 'r')
+    table = []
+    for i, line in enumerate(lines):
+        if i >= 247 and i < 523:
+            table.append(line.strip().split('\t'))
+
+    table = pd.DataFrame(table)
+
+    vol_list = table.iloc[:, 1:3]
+
+    # print(vol_list)
+    vol_L = vol_list[vol_list[1].str.contains('_L')]
+    vol_R = vol_list[vol_list[1].str.contains('_R')]
+
+    vol_L = vol_L[vol_L[1] != 'Chroid_LVetc_R']
+
+    vol_L = vol_L.sort_values(by=[1])
+    vol_R = vol_R.sort_values(by=[1])
+
+    # Swap SFG and SFG_PFC in right
+    a, b = vol_R.iloc[104].copy(), vol_R.iloc[105].copy()
+    vol_R.iloc[104], vol_R.iloc[105] = b, a
+
+    # Swap SFWM and SFWM_PFC in right
+    a, b = vol_R.iloc[108].copy(), vol_R.iloc[109].copy()
+    vol_R.iloc[108], vol_R.iloc[109] = b, a
+
+    return vol_L, vol_R
 
 
 def axis_equal(ax=None):
