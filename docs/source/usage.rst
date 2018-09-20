@@ -19,3 +19,11 @@ Start by importing PyLDDMM.
 .. autofunction:: pylddmm.surface.load_surface
 
 .. autofunction:: pylddmm.surface.save_surface
+
+.. autofunction:: pylddmm.surface.flip_surface_normals
+
+.. autofunction:: pylddmm.surface.vol_from_byu
+
+.. autofunction:: pylddmm.surface.extract_from_txt
+
+.. autofunction:: pylddmm.surface.plot_surface
