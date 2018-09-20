@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post13+gb3a2087 documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post14+g7673d7d documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.post13+gb3a2087
+                0.post14+g7673d7d
               </div>
             
           
@@ -171,6 +171,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    X : nparray</span>
 <span class="sd">        (d x n) array containing :math:`d` :math:`n`-dimensional points</span>
+<span class="sd">        </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Courtesy Dr. Daniel Tward</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -196,6 +200,11 @@
 <span class="sd">    -------</span>
 <span class="sd">    matrix : nparray</span>
 <span class="sd">        (4 x 4) matrix in homogeneous coordinates</span>
+<span class="sd">        </span>
+<span class="sd">                </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Courtesy Dr. Daniel Tward</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -264,6 +273,11 @@
 <span class="sd">        (3 x nv) array of vertex coordinates</span>
 <span class="sd">    faces : nparray</span>
 <span class="sd">        (3 x nf) array of triplets of vertices making triangular face</span>
+<span class="sd">        </span>
+<span class="sd">                </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Courtesy Dr. Daniel Tward</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">arbitrary</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -472,6 +486,11 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    plot_trisurf : matplotlib plot_trisurf object</span>
+<span class="sd">    </span>
+<span class="sd">            </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Courtesy Dr. Daniel Tward</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
@@ -481,98 +500,6 @@
             <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="c1"># don&#39;t draw edges, this will look too busy</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">plot_grid</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    plot a grid defined by X0 and X1,</span>
-<span class="sd">    which are 2d arrays that should be the same size</span>
-<span class="sd">    for example as output from meshgrid</span>
-
-<span class="sd">    rstride defines how many rows to skip</span>
-<span class="sd">    cstride defines how many columns to skip</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="c1"># some defaults</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;k&#39;</span>
-    <span class="p">}</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="c1"># plot rows</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rstride</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">X1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="c1"># plot columns</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cstride</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X0</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">X1</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X0</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">X1</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-
-
-<span class="c1"># def reflect_surface(V, axis=0, )</span>
-
-
-<span class="k">def</span> <span class="nf">downsample_image</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">down</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; downsample an image by averaging</span>
-<span class="sd">    down should either be a triple, or a single number</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># check if its an iterable with 3 elements</span>
-        <span class="n">d0</span> <span class="o">=</span> <span class="n">down</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-        <span class="n">down</span> <span class="o">=</span> <span class="p">[</span><span class="n">down</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">down</span><span class="p">]</span>
-    <span class="n">down</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">down</span><span class="p">)</span>
-    <span class="n">nx</span> <span class="o">=</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">nxd</span> <span class="o">=</span> <span class="n">nx</span> <span class="o">//</span> <span class="n">down</span>
-    <span class="n">Id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nxd</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-                <span class="n">Id</span> <span class="o">+=</span> <span class="n">I</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">nxd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">down</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">down</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span><span class="p">:</span><span class="n">nxd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span>
-                        <span class="n">down</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">down</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span><span class="n">nxd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">down</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">down</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
-    <span class="n">Id</span> <span class="o">=</span> <span class="n">Id</span> <span class="o">/</span> <span class="n">down</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">down</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">down</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Id</span>
-
-
-<span class="k">def</span> <span class="nf">sample_points_from_affine</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; From affine matrix A,</span>
-<span class="sd">    and meshgrid domain X0, X1, X2,</span>
-<span class="sd">    construct sample points to interpolate an image at to apply deformation</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="c1"># get the sample points by matrix multiplication</span>
-    <span class="n">X0s</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">X0</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">X2</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="n">X1s</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">X0</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">X2</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="n">X2s</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">X0</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">X2</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">X0s</span><span class="p">,</span> <span class="n">X1s</span><span class="p">,</span> <span class="n">X2s</span>
-
-<span class="c1"># simple function for drawing 3 slices</span>
-
-
-<span class="k">def</span> <span class="nf">imshow_slices</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">axlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Draw three slices through the middle of an image&#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="n">axlist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">f</span><span class="p">,</span> <span class="n">axlist</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;interpolation&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">}</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">h0</span> <span class="o">=</span> <span class="n">axlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">I</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]),</span>
-                          <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
-    <span class="n">h1</span> <span class="o">=</span> <span class="n">axlist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">I</span><span class="p">[:,</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:]),</span>
-                          <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
-    <span class="n">h2</span> <span class="o">=</span> <span class="n">axlist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]),</span>
-                          <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span>
-    <span class="n">axlist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">h0</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">]</span>
 </pre></div>
 
            </div>
@@ -607,7 +534,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.post13+gb3a2087',
+            VERSION:'0.post14+g7673d7d',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
