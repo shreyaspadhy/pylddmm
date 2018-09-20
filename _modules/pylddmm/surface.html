@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post14+g7673d7d documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post15+ge543827 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.post14+g7673d7d
+                0.post15+ge543827
               </div>
             
           
@@ -360,7 +360,7 @@
                                         <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span></div>
 
 
-<span class="k">def</span> <span class="nf">flip_surface_normals</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">):</span>
+<div class="viewcode-block" id="flip_surface_normals"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.flip_surface_normals">[docs]</a><span class="k">def</span> <span class="nf">flip_surface_normals</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a .byu file, and flips the surface normal directions.</span>
 
@@ -373,10 +373,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">save_surface</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">)</span>
+    <span class="n">save_surface</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">)</span></div>
     
             
-<span class="k">def</span> <span class="nf">vol_from_byu</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="vol_from_byu"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.vol_from_byu">[docs]</a><span class="k">def</span> <span class="nf">vol_from_byu</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the volume of a surface defined as a .byu file</span>
 <span class="sd">    </span>
@@ -403,10 +403,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please input either a filename or vertices and faces&quot;</span><span class="p">)</span>
     <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">))</span> <span class="o">/</span> <span class="mf">6.0</span>
-    <span class="k">return</span> <span class="n">volume</span>
+    <span class="k">return</span> <span class="n">volume</span></div>
 
 
-<span class="k">def</span> <span class="nf">extract_from_txt</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="extract_from_txt"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.extract_from_txt">[docs]</a><span class="k">def</span> <span class="nf">extract_from_txt</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts left and right volumes with names from MRICloud Output text files</span>
 
@@ -449,7 +449,7 @@
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">108</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">109</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">108</span><span class="p">],</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">109</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
 
-    <span class="k">return</span> <span class="n">vol_L</span><span class="p">,</span> <span class="n">vol_R</span>
+    <span class="k">return</span> <span class="n">vol_L</span><span class="p">,</span> <span class="n">vol_R</span></div>
 
 
 <span class="k">def</span> <span class="nf">axis_equal</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -472,7 +472,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="n">cz</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">plot_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_surface"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.plot_surface">[docs]</a><span class="k">def</span> <span class="nf">plot_surface</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a 3D surface given vertices and faces</span>
 <span class="sd">    </span>
@@ -499,7 +499,7 @@
             <span class="n">triangles</span><span class="o">=</span><span class="n">faces</span><span class="p">,</span> <span class="c1"># how are the vertices connected up into triangular faces</span>
             <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="c1"># don&#39;t draw edges, this will look too busy</span>
             <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -534,7 +534,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.post14+g7673d7d',
+            VERSION:'0.post15+ge543827',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
