@@ -48,11 +48,6 @@ def load_rigid_matrix(fname):
     -------
     matrix : nparray
         (4 x 4) matrix in homogeneous coordinates
-        
-                
-    Notes
-    -----
-    Courtesy Dr. Daniel Tward
     """
     matrix = np.empty((4, 4))
     with open(fname) as f:
