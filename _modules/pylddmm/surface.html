@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post8+g9400cd7 documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post13+gb3a2087 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.post8+g9400cd7
+                0.post13+gb3a2087
               </div>
             
           
@@ -155,6 +155,7 @@
 <span class="c1"># import matplotlib as mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="c1"># from mpl_toolkits.mplot3d import Axes3D</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
 <div class="viewcode-block" id="load_landmarks"><a class="viewcode-back" href="../../usage.html#pylddmm.surface.load_landmarks">[docs]</a><span class="k">def</span> <span class="nf">load_landmarks</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
@@ -265,22 +266,26 @@
 <span class="sd">        (3 x nf) array of triplets of vertices making triangular face</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">arbitrary</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="c1"># the first gives info about file</span>
-                    <span class="n">_</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-                    <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-                    <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-                    <span class="k">continue</span>
-                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">vertices</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">faces</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">nv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">-</span>
-                                            <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-        <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1"># the first gives info about file</span>
+                        <span class="n">_</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                        <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                        <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">vertices</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">faces</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">nv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">-</span>
+                                                <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+            <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File is in original .byu format&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">arbitrary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">face_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -341,6 +346,22 @@
                                         <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">faces</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span></div>
 
 
+<span class="k">def</span> <span class="nf">flip_surface_normals</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads a .byu file, and flips the surface normal directions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fname : str</span>
+<span class="sd">        Filename of .byu file</span>
+<span class="sd">    out_fname : str</span>
+<span class="sd">        Filename of output flipped .byu file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">save_surface</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">out_fname</span><span class="p">)</span>
+    
+            
 <span class="k">def</span> <span class="nf">vol_from_byu</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the volume of a surface defined as a .byu file</span>
@@ -360,15 +381,61 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">surf</span><span class="o">.</span><span class="n">load_surface</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">elif</span> <span class="s2">&quot;filename&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">surf</span><span class="o">.</span><span class="n">load_surface</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span>
+        <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span>
     <span class="k">elif</span> <span class="s2">&quot;V&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="s2">&quot;F&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">V</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please input either a filename or vertices and faces&quot;</span><span class="p">)</span>
     <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">V</span><span class="p">[:,</span><span class="n">F</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">))</span> <span class="o">/</span> <span class="mf">6.0</span>
     <span class="k">return</span> <span class="n">volume</span>
+
+
+<span class="k">def</span> <span class="nf">extract_from_txt</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts left and right volumes with names from MRICloud Output text files</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename: str</span>
+<span class="sd">            Name of .txt file output from MRICloud</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        vol_L: Pandas Dataframe</span>
+<span class="sd">            Columns [vol_name, vol (mm^3)] for left volumes</span>
+<span class="sd">        vol_R: Pandas Dataframe </span>
+<span class="sd">            Columns [vol_name, vol (mm^3)] for right volumes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">247</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">523</span><span class="p">:</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+    <span class="n">vol_list</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># print(vol_list)</span>
+    <span class="n">vol_L</span> <span class="o">=</span> <span class="n">vol_list</span><span class="p">[</span><span class="n">vol_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_L&#39;</span><span class="p">)]</span>
+    <span class="n">vol_R</span> <span class="o">=</span> <span class="n">vol_list</span><span class="p">[</span><span class="n">vol_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_R&#39;</span><span class="p">)]</span>
+
+    <span class="n">vol_L</span> <span class="o">=</span> <span class="n">vol_L</span><span class="p">[</span><span class="n">vol_L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Chroid_LVetc_R&#39;</span><span class="p">]</span>
+
+    <span class="n">vol_L</span> <span class="o">=</span> <span class="n">vol_L</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">vol_R</span> <span class="o">=</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Swap SFG and SFG_PFC in right</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">104</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">105</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">104</span><span class="p">],</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">105</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+
+    <span class="c1"># Swap SFWM and SFWM_PFC in right</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">108</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">109</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">108</span><span class="p">],</span> <span class="n">vol_R</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">109</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+
+    <span class="k">return</span> <span class="n">vol_L</span><span class="p">,</span> <span class="n">vol_R</span>
 
 
 <span class="k">def</span> <span class="nf">axis_equal</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -540,7 +607,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.post8+g9400cd7',
+            VERSION:'0.post13+gb3a2087',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
