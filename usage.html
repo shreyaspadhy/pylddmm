@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; PyLDDMM 0.post16+ged44965 documentation</title>
+  <title>Usage &mdash; PyLDDMM 0.post20+gef7b6c2 documentation</title>
   
 
   
@@ -27,8 +27,6 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" type="text/css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Release History" href="release-history.html" />
@@ -61,7 +59,7 @@
             
             
               <div class="version">
-                0.post16+ged44965
+                0.post20+gef7b6c2
               </div>
             
           
@@ -159,280 +157,6 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylddmm</span>
 </pre></div>
 </div>
-<dl class="function">
-<dt id="pylddmm.surface.load_landmarks">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">load_landmarks</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_landmarks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_landmarks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load landmarks from text file, where first line has size info</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename of file containing landmarks as <span class="math notranslate nohighlight">\(d\)</span>-rows of <span class="math notranslate nohighlight">\(n\)</span> vertices</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d x n) array containing <span class="math notranslate nohighlight">\(d\)</span> <span class="math notranslate nohighlight">\(n\)</span>-dimensional points</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>Courtesy Dr. Daniel Tward</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.load_rigid_matrix">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">load_rigid_matrix</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_rigid_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_rigid_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads a .dat file into a rigid transformation matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename with extension .dat</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(4 x 4) matrix in homogeneous coordinates</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.perform_rigid_transform">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">perform_rigid_transform</code><span class="sig-paren">(</span><em>vertices</em>, <em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#perform_rigid_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.perform_rigid_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a rigid transform on vertices</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) vertices to perform transform on</p>
-</dd>
-<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(4 x 4) rigid transform array in homogenous coords</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vertices_trans</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) transformed vertices</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.reflect_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">reflect_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#reflect_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.reflect_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reflects a surface around a specified axis</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
-</dd>
-<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.load_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">load_surface</code><span class="sig-paren">(</span><em>fname</em>, <em>arbitrary=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads a .byu file into vertices and faces</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename with extension .byu</p>
-</dd>
-<dt><strong>arbitrary</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
-<dd><p class="first last">Whether file format is arbitrary polygon</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
-</dd>
-<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>Courtesy Dr. Daniel Tward</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.save_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">save_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#save_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.save_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves vertices and faces as a .byu file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
-</dd>
-<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
-</dd>
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Output filename with extension .byu</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.flip_surface_normals">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">flip_surface_normals</code><span class="sig-paren">(</span><em>fname</em>, <em>out_fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#flip_surface_normals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.flip_surface_normals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads a .byu file, and flips the surface normal directions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename of .byu file</p>
-</dd>
-<dt><strong>out_fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename of output flipped .byu file</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.vol_from_byu">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">vol_from_byu</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#vol_from_byu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.vol_from_byu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the volume of a surface defined as a .byu file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>*args</strong></dt>
-<dd><p class="first last">Specify either the filename or a pair of vertex, face arrays</p>
-</dd>
-<dt><strong>**kwargs</strong></dt>
-<dd><p class="first last">Specify either <cite>filename</cite> or a pair of <cite>V</cite>, <cite>F</cite></p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>volume</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">The volume of the surface</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.extract_from_txt">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">extract_from_txt</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#extract_from_txt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.extract_from_txt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts left and right volumes with names from MRICloud Output text files</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>filename: str</strong></dt>
-<dd><p class="first last">Name of .txt file output from MRICloud</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vol_L: Pandas Dataframe</strong></dt>
-<dd><p class="first last">Columns [vol_name, vol (mm^3)] for left volumes</p>
-</dd>
-<dt><strong>vol_R: Pandas Dataframe</strong></dt>
-<dd><p class="first last">Columns [vol_name, vol (mm^3)] for right volumes</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.surface.plot_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">plot_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>ax=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#plot_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.plot_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots a 3D surface given vertices and faces</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
-</dd>
-<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>plot_trisurf</strong> <span class="classifier-delimiter">:</span> <span class="classifier">matplotlib plot_trisurf object</span></dt>
-<dd></dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>Courtesy Dr. Daniel Tward</p>
-</dd></dl>
-
 </div>
 
 
@@ -455,7 +179,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Shreyas Padhy.
+        &copy; Copyright 2018, Shreyas Padhy
 
     </p>
   </div>
@@ -474,25 +198,16 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.post16+ged44965',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/copybutton.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-      <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
