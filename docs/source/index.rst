@@ -43,4 +43,4 @@ Start by importing PyLDDMM.
 
 .. autofunction:: pylddmm.transform.perform_rigid_transform
 
-.. autofunction:: pylddmm.transform.linear
+.. autofunction:: pylddmm.transform.linear_point
