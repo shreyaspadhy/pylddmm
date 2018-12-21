@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PyLDDMM Documentation &mdash; PyLDDMM 0.post20+gef7b6c2 documentation</title>
+  <title>PyLDDMM Documentation &mdash; PyLDDMM 0.post22+ga09a5ff documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.post20+gef7b6c2
+                0.post22+ga09a5ff
               </div>
             
           
@@ -423,10 +423,10 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
 <dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) vertices to perform transform on</p>
+<dd><p class="first last">(d x nv) vertices to perform transform on</p>
 </dd>
 <dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(4 x 4) rigid transform array in homogenous coords</p>
+<dd><p class="first last">(d+1 x d+1) rigid transform array in homogenous coords</p>
 </dd>
 </dl>
 </td>
@@ -443,8 +443,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.transform.linear">
-<code class="descclassname">pylddmm.transform.</code><code class="descname">linear</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>transform</em>, <em>show_energy=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/transform.html#linear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.transform.linear" title="Permalink to this definition">¶</a></dt>
+<dt id="pylddmm.transform.linear_point">
+<code class="descclassname">pylddmm.transform.</code><code class="descname">linear_point</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>transform</em>, <em>show_energy=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/transform.html#linear_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.transform.linear_point" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the optimal transform from landmarks X to Y</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
