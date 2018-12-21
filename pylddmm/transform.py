@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def linear(X, Y, transform, show_energy=True):
+def linear_point(X, Y, transform, show_energy=True):
     """
     Calculate the optimal transform from landmarks X to Y
 
@@ -28,11 +28,12 @@ def linear(X, Y, transform, show_energy=True):
     AX : nparray
         (d x :math:`n_x`) array containing transformed X
     """
-    A = np.eye(4)
+    d = X.shape[0]
+    A = np.eye(d + 1)
     AX = np.zeros((X.shape))
     if transform == 'T':
         t = np.mean(Y, axis=1) - np.mean(X, axis=1)
-        A[:3, 3] = np.squeeze(t)
+        A[:d, d] = np.squeeze(t)
         AX = X + t[:, None]
         print("calculated optimal translation t : ", t)
     if transform == 's':
@@ -46,12 +47,12 @@ def linear(X, Y, transform, show_energy=True):
 
         A = np.dot(np.dot(Yh, Xh.T), np.linalg.inv(np.dot(Xh, Xh.T)))
         AXh = np.dot(A, Xh)
-        AX = AXh[:3, :]
+        AX = AXh[:d, :]
     if transform == 'R':
         U, s, Vt = np.linalg.svd(np.dot(Y, X.T))
 
-        A[:3, :3] = np.dot(np.dot(U, np.sign(np.diag(s))), Vt)
-        AX = np.dot(A[:3, :3], X)
+        A[:d, :d] = np.dot(np.dot(U, np.sign(np.diag(s))), Vt)
+        AX = np.dot(A[:d, :d], X)
 
     if show_energy:
         print("Original energy : ", np.sum(0.5 * (X - Y)**2))
@@ -89,16 +90,17 @@ def perform_rigid_transform(vertices, matrix):
     Parameters
     ----------
     vertices : nparray
-       (3 x nv) vertices to perform transform on
+       (d x nv) vertices to perform transform on
     matrix : nparray
-        (4 x 4) rigid transform array in homogenous coords
+        (d+1 x d+1) rigid transform array in homogenous coords
 
     Returns
     -------
     vertices_trans : nparray
         (3 x nv) transformed vertices
     """
+    d = vertices.shape[0]
     Vh = np.concatenate([vertices, np.ones((1, vertices.shape[1]))])
 
     Avh = np.dot(matrix, Vh)
-    return(Avh[:3, :])
+    return(Avh[:d, :])
