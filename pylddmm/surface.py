@@ -19,7 +19,7 @@ def load_landmarks(fname):
     -------
     X : nparray
         (d x n) array containing :math:`d` :math:`n`-dimensional points
-        
+
     Notes
     -----
     Courtesy Dr. Daniel Tward
@@ -33,51 +33,6 @@ def load_landmarks(fname):
                 continue
             X[:, i - 1] = [float(n) for n in line.split()]
     return X
-
-
-def load_rigid_matrix(fname):
-    """
-    Loads a .dat file into a rigid transformation matrix
-
-    Parameters
-    ----------
-    fname : str
-       Filename with extension .dat
-
-    Returns
-    -------
-    matrix : nparray
-        (4 x 4) matrix in homogeneous coordinates
-    """
-    matrix = np.empty((4, 4))
-    with open(fname) as f:
-        for i, line in enumerate(f):
-            matrix[i, :] = line.split()
-
-    matrix[3, :] = [0.0, 0.0, 0.0, 1.0]
-    return matrix
-
-
-def perform_rigid_transform(vertices, matrix):
-    """
-    Performs a rigid transform on vertices
-
-    Parameters
-    ----------
-    vertices : nparray
-       (3 x nv) vertices to perform transform on
-    matrix : nparray
-        (4 x 4) rigid transform array in homogenous coords
-
-    Returns
-    -------
-    vertices_trans : nparray
-        (3 x nv) transformed vertices
-    """
-    Vh = np.concatenate([vertices, np.ones((1, vertices.shape[1]))])
-
-    Avh = np.dot(matrix, Vh)
-    return(Avh[:3, :])
 
 
 def reflect_surface(vertices, faces, axis=0):
@@ -116,8 +71,8 @@ def load_surface(fname, arbitrary=False):
         (3 x nv) array of vertex coordinates
     faces : nparray
         (3 x nf) array of triplets of vertices making triangular face
-        
-                
+
+
     Notes
     -----
     Courtesy Dr. Daniel Tward
@@ -138,7 +93,7 @@ def load_surface(fname, arbitrary=False):
                         vertices[:, i - 2] = [float(n) for n in line.split()]
                     else:
                         faces[i - (nv + 2), :] = [np.abs(int(n)) -
-                                                1 for n in line.split()]
+                                                  1 for n in line.split()]
             return vertices, faces
         except:
             print("File is in original .byu format")
@@ -153,7 +108,7 @@ def load_surface(fname, arbitrary=False):
                     ns, nv, nf, ne = vals[0], vals[1], vals[2], vals[3]
                     vertices = np.empty((3, nv), dtype=float)
                     faces = np.empty((nf, 3), dtype=int)
-                    
+
                     nv_count, nf_count = 0, 0
                     continue
                 elif i >= 1 and i <= ns:
@@ -161,16 +116,18 @@ def load_surface(fname, arbitrary=False):
                     continue
                 elif i > ns and i <= ns + -(-nv // 2):
                     vals = line.split()
-                    vertices[:, 2 * (i - ns - 1)] = [float(n) for n in vals[:3]]
+                    vertices[:, 2 * (i - ns - 1)] = [float(n)
+                                                     for n in vals[:3]]
                     if len(vals) > 3:
-                        vertices[:, 2 * (i - ns - 1) + 1] = [float(n) for n in vals[3:]]      
+                        vertices[:, 2 * (i - ns - 1) + 1] = [float(n)
+                                                             for n in vals[3:]]
                 else:
-                    vals = [abs(int(n))-1 for n in line.split()]
+                    vals = [abs(int(n)) - 1 for n in line.split()]
                     face_list.extend(vals)
-            
+
             face_list = np.asarray(face_list)
-            faces = face_list.reshape((nf,3))
-            
+            faces = face_list.reshape((nf, 3))
+
             return vertices, faces
 
 
@@ -215,21 +172,21 @@ def flip_surface_normals(fname, out_fname):
         Filename of output flipped .byu file
     """
     V, F = load_surface(fname)
-    F[:,0], F[:,1] = F[:,1], F[:,0].copy()
+    F[:, 0], F[:, 1] = F[:, 1], F[:, 0].copy()
     save_surface(V, F, out_fname)
-    
-            
-def vol_from_byu(*args,**kwargs):
+
+
+def vol_from_byu(*args, **kwargs):
     """
     Calculates the volume of a surface defined as a .byu file
-    
+
     Parameters
     ----------
     *args
         Specify either the filename or a pair of vertex, face arrays
     **kwargs
         Specify either `filename` or a pair of `V`, `F`
-        
+
     Returns
     -------
     volume : float
@@ -245,7 +202,8 @@ def vol_from_byu(*args,**kwargs):
         V, F = kwargs['V'], kwargs['F']
     else:
         print("Please input either a filename or vertices and faces")
-    volume = np.sum(np.sum(np.cross(V[:,F[:,0]].T, V[:,F[:,1]].T) * V[:,F[:,2]].T)) / 6.0
+    volume = np.sum(
+        np.sum(np.cross(V[:, F[:, 0]].T, V[:, F[:, 1]].T) * V[:, F[:, 2]].T)) / 6.0
     return volume
 
 
@@ -318,19 +276,19 @@ def axis_equal(ax=None):
 def plot_surface(vertices, faces, ax=None, **kwargs):
     """
     Plots a 3D surface given vertices and faces
-    
+
     Parameters
     ----------
     vertices : nparray
         (3 x nv) array of vertex coordinates
     faces : nparray
         (3 x nf) array of triplets of vertices making triangular face
-    
+
     Returns
     -------
     plot_trisurf : matplotlib plot_trisurf object
-    
-            
+
+
     Notes
     -----
     Courtesy Dr. Daniel Tward
@@ -338,8 +296,9 @@ def plot_surface(vertices, faces, ax=None, **kwargs):
     ax = ax or plt.gca()
 
     return ax.plot_trisurf(
-            vertices[0,:], vertices[1,:], vertices[2,:], # the x,y,z components of all the vertices
-            triangles=faces, # how are the vertices connected up into triangular faces
-            edgecolor='none', # don't draw edges, this will look too busy
-            **kwargs
-        )
+        # the x,y,z components of all the vertices
+        vertices[0, :], vertices[1, :], vertices[2, :],
+        triangles=faces,  # how are the vertices connected up into triangular faces
+        edgecolor='none',  # don't draw edges, this will look too busy
+        **kwargs
+    )
