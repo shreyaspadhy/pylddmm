@@ -1,6 +1,7 @@
 ./_modules/index.html
 ./_modules/pylddmm/surface.html
-./_modules/pylddmm/transform.html
+./_modules/pylddmm/utils.html
+./_modules/pylddmm/volume.html
 ./_sources/index.rst.txt
 ./_sources/installation.rst.txt
 ./_sources/release-history.rst.txt
@@ -60,6 +61,7 @@
 ./_static/jquery.js
 ./_static/js/modernizr.min.js
 ./_static/js/theme.js
+./_static/language_data.js
 ./_static/minus.png
 ./_static/plus.png
 ./_static/pygments.css

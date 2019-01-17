@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PyLDDMM Documentation &mdash; PyLDDMM 0.post22+ga09a5ff documentation</title>
+  <title>PyLDDMM Documentation &mdash; PyLDDMM 0.post30+g22948ab documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.post22+ga09a5ff
+                0.post30+g22948ab
               </div>
             
           
@@ -168,6 +168,9 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylddmm</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="surface">
+<h2>Surface<a class="headerlink" href="#surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pylddmm.surface.load_landmarks">
 <code class="descclassname">pylddmm.surface.</code><code class="descname">load_landmarks</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_landmarks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_landmarks" title="Permalink to this definition">¶</a></dt>
@@ -197,14 +200,48 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.surface.reflect_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">reflect_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#reflect_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.reflect_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reflects a surface around a specified axis</p>
+<dt id="pylddmm.surface.load_rigid_matrix">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">load_rigid_matrix</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_rigid_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_rigid_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a .dat or .txt file into a rigid transformation matrix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">Filename with extension .dat</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(4 x 4) matrix in homogeneous coordinates</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.load_surface">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">load_surface</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a .byu or .vtk file into vertices and faces, overloads load_byu and
+load_vtk</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">Filename with extension .byu or .vtk</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
 <dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
 <dd><p class="first last">(3 x nv) array of vertex coordinates</p>
 </dd>
@@ -219,8 +256,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.surface.load_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">load_surface</code><span class="sig-paren">(</span><em>fname</em>, <em>arbitrary=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_surface" title="Permalink to this definition">¶</a></dt>
+<dt id="pylddmm.surface.load_byu">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">load_byu</code><span class="sig-paren">(</span><em>fname</em>, <em>arbitrary=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_byu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_byu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a .byu file into vertices and faces</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -253,22 +290,64 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.surface.save_surface">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">save_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#save_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.save_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves vertices and faces as a .byu file</p>
+<dt id="pylddmm.surface.load_R">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">load_R</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_R"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a 3x3 R matrix from file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>filename: str</strong></dt>
+<dd><p class="first last">Specify filename containing R data</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.load_T">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">load_T</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#load_T"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.load_T" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a 1x3 T vector from file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>filename: str</strong></dt>
+<dd><p class="first last">Specify filename containing T data</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.perform_rigid_transform">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">perform_rigid_transform</code><span class="sig-paren">(</span><em>vertices</em>, <em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#perform_rigid_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.perform_rigid_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a rigid transform on vertices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
 <dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
+<dd><p class="first last">(3 x nv) vertices to perform transform on</p>
 </dd>
-<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
+<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(4 x 4) rigid transform array in homogenous coords</p>
 </dd>
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Output filename with extension .byu</p>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vertices_trans</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nv) transformed vertices</p>
 </dd>
 </dl>
 </td>
@@ -300,9 +379,128 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.surface.vol_from_byu">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">vol_from_byu</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#vol_from_byu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.vol_from_byu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the volume of a surface defined as a .byu file</p>
+<dt id="pylddmm.surface.reflect_surface">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">reflect_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#reflect_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.reflect_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reflects a surface around a specified axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
+</dd>
+<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.make_affine_from_RT">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">make_affine_from_RT</code><span class="sig-paren">(</span><em>R_file</em>, <em>T_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#make_affine_from_RT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.make_affine_from_RT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a 4x4 affine matrix from R and T files, overloads load_R and load_T</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>R_file: str</strong></dt>
+<dd><p class="first last">Specify filename containing R data</p>
+</dd>
+<dt><strong>T_file: str</strong></dt>
+<dd><p class="first last">Specify filename containing T data</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.save_surface">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">save_surface</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>fname</em>, <em>filetype='byu'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#save_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.save_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloads <cite>save_byu</cite> and <cite>save_vtk</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
+</dd>
+<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
+</dd>
+<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">Output filename with extension .byu</p>
+</dd>
+<dt><strong>filetype</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">Either ‘.byu’ or ‘.vtk’</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.save_byu">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">save_byu</code><span class="sig-paren">(</span><em>vertices</em>, <em>faces</em>, <em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#save_byu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.save_byu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves vertices and faces as a .byu file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nv) array of vertex coordinates</p>
+</dd>
+<dt><strong>faces</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(3 x nf) array of triplets of vertices making triangular face</p>
+</dd>
+<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">Output filename with extension .byu</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.byu_to_vtk">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">byu_to_vtk</code><span class="sig-paren">(</span><em>byu_filename</em>, <em>vtk_filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#byu_to_vtk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.byu_to_vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts .byu file to .vtk file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>byu_filename: str</strong></dt>
+<dd><p class="first last">Specify filename of .byu file</p>
+</dd>
+<dt><strong>vtk_filename: str</strong></dt>
+<dd><p class="first last">Specify output filename of .vtk file</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylddmm.surface.vol_from_surface">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">vol_from_surface</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#vol_from_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.vol_from_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the volume of a surface either as .byu, .vtk, or (V, F) tuple</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -329,26 +527,30 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pylddmm.surface.extract_from_txt">
-<code class="descclassname">pylddmm.surface.</code><code class="descname">extract_from_txt</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#extract_from_txt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.extract_from_txt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts left and right volumes with names from MRICloud Output text files</p>
+<dt id="pylddmm.surface.vertex_area">
+<code class="descclassname">pylddmm.surface.</code><code class="descname">vertex_area</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/surface.html#vertex_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.surface.vertex_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the vertex areas of a surface either as .byu, .vtk, or (V, F) 
+tuple</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>filename: str</strong></dt>
-<dd><p class="first last">Name of .txt file output from MRICloud</p>
+<dt><strong>*args</strong></dt>
+<dd><p class="first last">Specify either the filename or a pair of vertex, face arrays</p>
+</dd>
+<dt><strong>**kwargs</strong></dt>
+<dd><p class="first last">Specify either <cite>filename</cite> or a pair of <cite>V</cite>, <cite>F</cite></p>
 </dd>
 </dl>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vol_L: Pandas Dataframe</strong></dt>
-<dd><p class="first last">Columns [vol_name, vol (mm^3)] for left volumes</p>
+<dt><strong>v_areas</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(nv x 1) array containing vertex areas</p>
 </dd>
-<dt><strong>vol_R: Pandas Dataframe</strong></dt>
-<dd><p class="first last">Columns [vol_name, vol (mm^3)] for right volumes</p>
+<dt><strong>f_areas</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
+<dd><p class="first last">(nf x 1) array containing face areas</p>
 </dd>
 </dl>
 </td>
@@ -387,24 +589,31 @@
 <p>Courtesy Dr. Daniel Tward</p>
 </dd></dl>
 
+</div>
+<div class="section" id="volume">
+<h2>Volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pylddmm.transform.load_rigid_matrix">
-<code class="descclassname">pylddmm.transform.</code><code class="descname">load_rigid_matrix</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/transform.html#load_rigid_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.transform.load_rigid_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads a .dat file into a rigid transformation matrix</p>
+<dt id="pylddmm.volume.extract_from_txt">
+<code class="descclassname">pylddmm.volume.</code><code class="descname">extract_from_txt</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/volume.html#extract_from_txt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.volume.extract_from_txt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts left and right volumes with names from MRICloud Output text 
+files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Filename with extension .dat</p>
+<dt><strong>filename: str</strong></dt>
+<dd><p class="first last">Name of .txt file output from MRICloud</p>
 </dd>
 </dl>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(4 x 4) matrix in homogeneous coordinates</p>
+<dt><strong>vol_L: Pandas Dataframe</strong></dt>
+<dd><p class="first last">Columns [vol_name, vol (mm^3)] for left volumes</p>
+</dd>
+<dt><strong>vol_R: Pandas Dataframe</strong></dt>
+<dd><p class="first last">Columns [vol_name, vol (mm^3)] for right volumes</p>
 </dd>
 </dl>
 </td>
@@ -413,65 +622,21 @@
 </table>
 </dd></dl>
 
+</div>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pylddmm.transform.perform_rigid_transform">
-<code class="descclassname">pylddmm.transform.</code><code class="descname">perform_rigid_transform</code><span class="sig-paren">(</span><em>vertices</em>, <em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/transform.html#perform_rigid_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.transform.perform_rigid_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a rigid transform on vertices</p>
+<dt id="pylddmm.utils.run_bash_command">
+<code class="descclassname">pylddmm.utils.</code><code class="descname">run_bash_command</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/utils.html#run_bash_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.utils.run_bash_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple fn that runs a bash command through Python with real-time 
+outputs</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>vertices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d x nv) vertices to perform transform on</p>
-</dd>
-<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d+1 x d+1) rigid transform array in homogenous coords</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>vertices_trans</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(3 x nv) transformed vertices</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pylddmm.transform.linear_point">
-<code class="descclassname">pylddmm.transform.</code><code class="descname">linear_point</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>transform</em>, <em>show_energy=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pylddmm/transform.html#linear_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pylddmm.transform.linear_point" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the optimal transform from landmarks X to Y</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d x <span class="math notranslate nohighlight">\(n_x\)</span>) array containing <span class="math notranslate nohighlight">\(n\)</span> <span class="math notranslate nohighlight">\(d\)</span>-dimensional points</p>
-</dd>
-<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d x <span class="math notranslate nohighlight">\(n_y\)</span>) array containing <span class="math notranslate nohighlight">\(n\)</span> <span class="math notranslate nohighlight">\(d\)</span>-dimensional points</p>
-</dd>
-<dt><strong>transform</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Either ‘T’, ‘s’, ‘R’, or ‘aff’</p>
-</dd>
-<dt><strong>show_energy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
-<dd><p class="first last">Display initial and final L2 norm</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>A</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(4 x 4) homogenous transformation matrix</p>
-</dd>
-<dt><strong>AX</strong> <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span></dt>
-<dd><p class="first last">(d x <span class="math notranslate nohighlight">\(n_x\)</span>) array containing transformed X</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>command: str</strong></dt>
+<dd><p class="first last">bash command</p>
 </dd>
 </dl>
 </td>
@@ -526,9 +691,10 @@
         <script type="text/javascript" src="_static/jquery.js"></script>
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
         <script type="text/javascript" src="_static/copybutton.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
   
