@@ -101,7 +101,7 @@ def reflect_surface(vertices, faces, axis=0):
 
 def load_surface(fname):
     """
-    Loads a .byu or .vtk file into vertices and faces, overloads load_byu and 
+    Loads a .byu or .vtk file into vertices and faces, overloads load_byu and
     load_vtk
 
     Parameters
@@ -190,7 +190,7 @@ def load_byu(fname, arbitrary=False):
                         vertices[:, 2 * (i - ns - 1) + 1] = [float(n)
                                                              for n in vals[3:]]
                 else:
-                    vals = [abs(int(n))-1 for n in line.split()]
+                    vals = [abs(int(n)) - 1 for n in line.split()]
                     face_list.extend(vals)
 
             face_list = np.asarray(face_list)
