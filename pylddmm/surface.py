@@ -298,7 +298,8 @@ def vol_from_surface(*args, **kwargs):
 
 def vertex_area(*args, **kwargs):
     """
-    Calculates the vertex areas of a surface either as .byu, .vtk, or (V, F) tuple
+    Calculates the vertex areas of a surface either as .byu, .vtk, or (V, F) 
+    tuple
 
     Parameters
     ----------
@@ -387,7 +388,7 @@ def plot_surface(vertices, faces, ax=None, **kwargs):
     return ax.plot_trisurf(
         # the x,y,z components of all the vertices
         vertices[0, :], vertices[1, :], vertices[2, :],
-        triangles=faces,  # how are the vertices connected up into triangular faces
+        triangles=faces,  # how are the vertices connected up into tri faces
         edgecolor='none',  # don't draw edges, this will look too busy
         **kwargs
     )
@@ -441,7 +442,7 @@ def load_R(filename):
 
 
 def load_T(filename):
-        """
+    """
     Loads a 1x3 T vector from file
 
     Parameters
@@ -461,7 +462,7 @@ def load_T(filename):
 
 
 def make_affine_from_RT(R_file, T_file):
-        """
+    """
     Loads a 4x4 affine matrix from R and T files, overloads load_R and load_T
 
     Parameters

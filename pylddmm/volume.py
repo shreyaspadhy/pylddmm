@@ -8,7 +8,8 @@ import pandas as pd
 
 def extract_from_txt(filename):
     """
-        Extracts left and right volumes with names from MRICloud Output text files
+        Extracts left and right volumes with names from MRICloud Output text 
+        files
 
         Parameters
         ----------

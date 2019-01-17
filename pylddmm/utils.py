@@ -4,7 +4,8 @@ import shlex
 
 def run_bash_command(command):
     """
-        Simple fn that runs a bash command through Python with real-time outputs
+        Simple fn that runs a bash command through Python with real-time 
+        outputs
 
         Parameters
         ----------
