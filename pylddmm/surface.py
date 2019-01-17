@@ -292,7 +292,8 @@ def vol_from_surface(*args, **kwargs):
     else:
         print("Please input either a filename or vertices and faces")
     volume = np.sum(
-        np.sum(np.cross(V[:, F[:, 0]].T, V[:, F[:, 1]].T) * V[:, F[:, 2]].T)) / 6.0
+        np.sum(np.cross(V[:, F[:, 0]].T,
+                        V[:, F[:, 1]].T) * V[:, F[:, 2]].T)) / 6.0
     return volume
 
 
