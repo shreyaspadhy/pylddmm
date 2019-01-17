@@ -70,4 +70,3 @@ Utilities
 =========
 
 .. autofunction:: pylddmm.utils.run_bash_command
-=======
