@@ -406,7 +406,7 @@ def byu_to_vtk(byu_filename, vtk_filename):
     vtk_filename: str
         Specify output filename of .vtk file
     """
-    V, F = surf.load_surface(byu_filename)
+    V, F = load_surface(byu_filename)
     nv, nf = V.shape[1], F.shape[0]
     with open(vtk_filename, 'w+') as f:
         f.write('# vtk DataFile Version 3.0\n')
