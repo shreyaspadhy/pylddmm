@@ -165,7 +165,7 @@ def load_byu(fname, arbitrary=False):
             return vertices, faces
         except:
             print("File is in original .byu format")
-            return load_surface(fname, arbitrary=True)
+            return load_byu(fname, arbitrary=True)
     else:
         face_list = []
         with open(fname) as f:
