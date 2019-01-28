@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pylddmm.surface &mdash; PyLDDMM 0.post31+gee8d0c7 documentation</title>
+  <title>pylddmm.surface &mdash; PyLDDMM 0.post32+gdddb338 documentation</title>
   
 
   
@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.post31+gee8d0c7
+                0.post32+gdddb338
               </div>
             
           
@@ -315,7 +315,7 @@
             <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File is in original .byu format&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">load_surface</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">arbitrary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">load_byu</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">arbitrary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">face_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
