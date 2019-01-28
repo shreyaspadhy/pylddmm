@@ -99,29 +99,6 @@ def reflect_surface(vertices, faces, axis=0):
     return perform_rigid_transform(vertices, reflect_matrix), faces
 
 
-def load_surface(fname):
-    """
-    Loads a .byu or .vtk file into vertices and faces, overloads load_byu and
-    load_vtk
-
-    Parameters
-    ----------
-    fname : str
-       Filename with extension .byu or .vtk
-
-    Returns
-    -------
-    vertices : nparray
-        (3 x nv) array of vertex coordinates
-    faces : nparray
-        (3 x nf) array of triplets of vertices making triangular face
-    """
-    if fname[-4:] == '.byu':
-        return load_byu(fname, arbitrary=False)
-    elif fname[-4:] == 'vtk':
-        print(".vtk functionality coming soon")
-
-
 def load_byu(fname, arbitrary=False):
     """
     Loads a .byu file into vertices and faces
@@ -197,6 +174,29 @@ def load_byu(fname, arbitrary=False):
             faces = face_list.reshape((nf, 3))
 
             return vertices, faces
+        
+        
+def load_surface(fname):
+    """
+    Loads a .byu or .vtk file into vertices and faces, overloads load_byu and
+    load_vtk
+
+    Parameters
+    ----------
+    fname : str
+       Filename with extension .byu or .vtk
+
+    Returns
+    -------
+    vertices : nparray
+        (3 x nv) array of vertex coordinates
+    faces : nparray
+        (3 x nf) array of triplets of vertices making triangular face
+    """
+    if fname[-4:] == '.byu':
+        return load_byu(fname, arbitrary=False)
+    elif fname[-4:] == 'vtk':
+        print(".vtk functionality coming soon")
 
 
 def save_surface(vertices, faces, fname, filetype='byu'):
