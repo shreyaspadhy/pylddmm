@@ -419,7 +419,7 @@ def byu_to_vtk(byu_filename, vtk_filename):
 
         f.write('POLYGONS {} {}\n'.format(nf, nf*4))
         for i in range(nf):
-            f.write('3 {} {} {}\n'.format(F[i, 0]-1, F[i, 1]-1, F[i, 2]-1))
+            f.write('3 {} {} {}\n'.format(F[i, 0], F[i, 1], F[i, 2]))
 
 
 def load_R(filename):
